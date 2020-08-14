@@ -1,0 +1,23 @@
+steps:
+
+# Running `docker run` with /workspace mounted works, because /workspace is a
+# host-mounted volume.
+- name: docker
+  entrypoint: sh
+  args:
+  - -c
+  - |
+    set -euxo pipefail
+    echo hello > world
+    got=$(docker run -v /workspace:/shadow ubuntu cat /shadow/world)
+    want=hello
+    echo got $got want $want
+    if [[ $got != $want ]]; then
+      exit 1
+    fi
+
+tags:
+- ${_TAG}
+
+substitutions:
+  _TAG: dummy

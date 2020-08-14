@@ -1,0 +1,23 @@
+steps:
+
+# Fetching Project ID from spoofed metadata should match $PROJECT_ID
+# placeholder.
+- name: curlimages/curl
+  waitFor: ['-']
+  entrypoint: sh
+  args:
+  - -c
+  - |
+    set -euxo pipefail
+    got=$(curl http://metadata.google.internal/computeMetadata/v1/project/project-id -H 'Metadata-Flavor: Google')
+    want=${PROJECT_ID}
+    echo got $got want $want
+    if [[ $got != $want ]]; then
+      exit 1
+    fi
+
+tags:
+- ${_TAG}
+
+substitutions:
+  _TAG: dummy
