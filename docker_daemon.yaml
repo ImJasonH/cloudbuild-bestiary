@@ -1,0 +1,16 @@
+steps:
+
+# Subsequent steps are able to run images produced by previous steps.
+# To demonstrate this, we tag the `docker` image to some made-up image that
+# clearly doesn't exist in any real registry, then run it as the image in the
+# next step.
+- name: docker
+  args: ['tag', 'docker', 'fake.registry/made-up-for-this-build']
+- name: fake.registry/made-up-for-this-build
+  args: ['version']
+
+tags:
+- ${_TAG}
+
+substitutions:
+  _TAG: dummy
