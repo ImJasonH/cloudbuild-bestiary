@@ -1,0 +1,20 @@
+steps:
+
+# Write some contents to a uniquely-named file and tell GCB to upload it to a
+# GCS bucket, using a filepath glob to find the file.
+- name: busybox
+  entrypoint: sh
+  args:
+  - -c
+  - echo the date is $(date) > date-$(date +%s).txt
+
+artifacts:
+  objects:
+    location: gs://${PROJECT_ID}_cloudbuild/artifacts/
+    paths: ['date-*.txt']
+
+tags:
+- ${_TAG}
+
+substitutions:
+  _TAG: dummy
