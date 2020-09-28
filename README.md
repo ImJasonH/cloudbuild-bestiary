@@ -8,3 +8,15 @@ To run them all:
 ```
 go test ./... -v
 ```
+
+To run one test (e.g., `workspace.yaml`):
+
+```
+go test ./... -v -run=.*/workspace.yaml
+```
+
+or 
+
+```
+gcloud builds submit --config=workspace.yaml
+```

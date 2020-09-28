@@ -1,0 +1,14 @@
+steps:
+
+# Builds can push specified images from the local Docker daemon context to GCR.
+- name: docker
+  args: ['tag', 'docker', 'gcr.io/${PROJECT_ID}/docker']
+
+images:
+- 'gcr.io/${PROJECT_ID}/docker'
+
+tags:
+- ${_TAG}
+
+substitutions:
+  _TAG: dummy
